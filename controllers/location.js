@@ -5,8 +5,9 @@ const Location = require('../models/Location');
 // @access Public
 exports.getLocation = async (req, res, next) => {
   try {
+    console.log("Call Start : getLocation".underline.blue)
     const location = await Location.find();
-
+    console.log("Call End : getLocation".underline.blue)
     return res.status(200).json({
       success: true,
       count: location.length,
