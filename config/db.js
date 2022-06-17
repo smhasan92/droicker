@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
+let conn = null;
+
+exports.connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
       useUnifiedTopology: true
     });
-
     console.log(`MongoDB Connected: ${conn.connection.host}`.underline.green);
   } catch (error) {
     console.error(error);
@@ -16,4 +17,14 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+exports.closeDB = async () => {
+  try {
+    conn.connection.close();
+    console.log(`MongoDB Closed: ${conn.connection.host}`.underline.red);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+// module.exports = connectDB;

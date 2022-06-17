@@ -2,14 +2,14 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const connectDB = require('./config/db');
+const db = require('./config/db');
 var colors = require('colors');
 
 // load env vars
 dotenv.config({ path: './config/config.env' });
 
 // Connect to database
-connectDB();
+db.connectDB();
 
 const app = express();
 
