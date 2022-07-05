@@ -14,8 +14,7 @@ exports.getLocation = async (req, res, next) => {
       data: location
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    next(err);
   }
 };
 

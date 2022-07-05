@@ -2,9 +2,10 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const errorHandler = require('./middleware/error')
+
 const db = require('./config/db');
 var colors = require('colors');
-
 // load env vars
 dotenv.config({ path: './config/config.env' });
 
@@ -26,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/device', require('./routes/devices'));
 // Routes for location
 app.use('/api/v1/location', require('./routes/location'));
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
