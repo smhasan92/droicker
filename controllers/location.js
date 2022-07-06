@@ -1,4 +1,6 @@
+const ErrorResponse = require('../utils/errorHandler');
 const Location = require('../models/Location');
+
 
 // @desc  Get all devices
 // @route GET /api/v1/devices
@@ -14,7 +16,7 @@ exports.getLocation = async (req, res, next) => {
       data: location
     });
   } catch (err) {
-    next(err);
+    next(new ErrorResponse(err.message,404));
   }
 };
 
@@ -33,8 +35,8 @@ exports.addLocation = async (req, res, next) => {
   } catch (err) {
     console.error(`${err}`.red);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'This location already exists' });
+      next(new ErrorResponse('This location already exists',400));
     }
-    res.status(500).json({ error: 'Server error' });
+    next(new ErrorResponse('Server error',505));
   }
 };
