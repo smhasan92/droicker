@@ -33,10 +33,9 @@ exports.addLocation = async (req, res, next) => {
       data: location
     });
   } catch (err) {
-    console.error(`${err}`.red);
-    if (err.code === 11000) {
-      next(new ErrorResponse('This location already exists',400));
-    }
-    next(new ErrorResponse('Server error',505));
+      if (err.code === 11000) {
+        next(new ErrorResponse('This location already exists',400));
+      }
+    next(err);
   }
 };

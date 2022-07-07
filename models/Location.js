@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const LocationSchema = new mongoose.Schema({
     deviceId: {
-        type: String
+        type: String,
+        required : [true, 'Device Id is required']
     },
     location: {
         type: {
@@ -11,7 +12,8 @@ const LocationSchema = new mongoose.Schema({
         },
         coordinates: {
             type: [Number],
-            index: '2dsphere'
+            index: '2dsphere',
+            required : [true, 'Location Coordinates are required']
         },
         formattedAddress: String
     },
